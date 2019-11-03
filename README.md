@@ -1,6 +1,7 @@
 # E-commerce web side-project
 
 A project that simulate a e-commerce web with backstage like CMS system.
+Backstage system need account, if interested please mail leo36094@gmail.com for detail.
 
 ## Front-Stage Section:
 
