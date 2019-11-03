@@ -1,45 +1,51 @@
 <style lang="stylus">
-#app
-  margin 0 auto
-  font-family 'Helvetica Neue', Arial, Sans-Serif
+#app {
+  margin: 0 auto;
+  font-family: 'Helvetica Neue', Arial, Sans-Serif;
+}
 
-.app
-  &-content
-    display flex
-    width 100%
-    margin 0 auto
-    position relative
-    flex-direction column
+.app {
+  &-content {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    flex-direction: column;
+  }
 
-  &-table
-    height calc(100% - 60px)
-    width 100%
-    display flex
+  &-table {
+    height: calc(100% - 60px);
+    width: 100%;
+    display: flex;
+  }
+}
 
-.dashboard__popup
-  position absolute
-  top 0
-  right 0
-  height 100%
-  max-width 450px
-  box-shadow -1px 0 6px 0 rgba(197, 197, 197, 0.5)
-  background-color white
+.dashboard__popup {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  max-width: 450px;
+  box-shadow: -1px 0 6px 0 rgba(197, 197, 197, 0.5);
+  background-color: white;
+}
 
-.error
-  border 1px solid #F56C6C
+.error {
+  border: 1px solid #F56C6C;
+}
 </style>
 <template>
-  <div id="app" class="app">
+  <div id="app" class="app" :style="isModalShow &&{overflow: 'hidden'}">
     <div class="app-content">
       <router-view></router-view>
       <transition name="page" v-if="isPopupShow">
-        <BackgroundMask @click.native="closePopup"/>
+        <BackgroundMask @click.native="closePopup" />
       </transition>
       <transition name="Popup">
-        <Popup class="dashboard__popup" v-if="isPopupShow"/>
+        <Popup class="dashboard__popup" v-if="isPopupShow" />
       </transition>
       <transition name="page">
-        <Modal v-if="isModalShow" :scrollPosition="scrollPosition" />
+        <Modal v-if="isModalShow" />
       </transition>
     </div>
   </div>
@@ -60,8 +66,7 @@ export default {
   props: {},
   data() {
     return {
-      isLoading: false,
-      scrollPosition:''
+      isLoading: false
     };
   },
   watch: {
@@ -90,19 +95,12 @@ export default {
     // console.log(process.env.VUE_APP_API);
     // this.$http.get(api).then(res => console.log(res));
   },
-  mounted() {this.getScrollHeight()},
+  mounted() {},
   destroyed() {},
   methods: {
     ...mapActions(["setPopupShow", "setModalShow", "setPopupComponent"]),
     closePopup() {
       this.setPopupComponent("");
-    },
-    getScrollHeight() {
-      this.$nextTick(() => {
-        window.addEventListener("scroll", () => {
-          this.scrollPosition = window.scrollY;
-        });
-      });
     }
   }
 };

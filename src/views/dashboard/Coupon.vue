@@ -1,44 +1,57 @@
 <style lang="stylus">
-.products
-  width 100%
+.products {
+  width: 100%;
 
-  &-content
-    width 100%
+  &-content {
+    width: 100%;
 
-    &__table-container
-      height calc(100vh - 30vh)
-      width 100%
+    &__table-container {
+      height: calc(100vh - 30vh);
+      width: 100%;
+    }
 
-    &__table
-      height 100%
+    &__table {
+      height: 100%;
 
-      .el-checkbox__inner
-        &:hover, &:focus
-          border-color #66cfd2
+      .el-checkbox__inner {
+        &:hover, &:focus {
+          border-color: #66cfd2;
+        }
+      }
 
-      .el-checkbox__input
-        &.is-checked, &.is-indeterminate
-          .el-checkbox__inner
-            background-color #66cfd2
-            border-color #66cfd2
+      .el-checkbox__input {
+        &.is-checked, &.is-indeterminate {
+          .el-checkbox__inner {
+            background-color: #66cfd2;
+            border-color: #66cfd2;
+          }
+        }
 
-        &.is-focus
-          .el-checkbox__inner
-            border-color #66cfd2
+        &.is-focus {
+          .el-checkbox__inner {
+            border-color: #66cfd2;
+          }
+        }
+      }
 
-      &__search
-        width 100px
+      &__search {
+        width: 100px;
+      }
+    }
 
-    &__pagination
-      text-align center
-      height 50px
+    &__pagination {
+      text-align: center;
+      height: 50px;
+    }
+  }
+}
 </style>
 <template>
   <div class="products">
     <div class="products-content">
       <Loading :active.sync="isLoading"></Loading>
-      <Button btnName="新增優惠卷" @click.native.stop.prevent="showSidePopup"/>
-      <Button btnName="刪除優惠卷" @click.native.stop.prevent="deleteMultiProducts(selectedItem)"/>
+      <Button btnName="新增優惠卷" @click.native.stop.prevent="showSidePopup" />
+      <Button btnName="刪除優惠卷" @click.native.stop.prevent="deleteMultiProducts(selectedItem)" />
       <div class="products-content__table-container">
         <el-table
           class="products-content__table"
@@ -85,12 +98,10 @@
 const couponApi = `${process.env.VUE_APP_API}api/leochuang/admin/coupons`;
 const deleteCoupon = `${process.env.VUE_APP_API}api/leochuang/admin/coupon/`;
 import { mapActions } from "vuex";
-import CreateProductForm from "@/components/form/CreateProductForm.vue";
 import Button from "@/components/reuse/Button.vue";
 import Pagination from "@/components/Pagination.vue";
 export default {
   components: {
-    CreateProductForm,
     Button,
     Pagination
   },
@@ -110,6 +121,7 @@ export default {
     this.$root.$on("Coupon:refreshPageTableData", () => {
       this.getCoupons();
     });
+
     this.coupons.forEach(item => {
       item.is_enabled === 1
         ? (item.readableStatus = "Active")
@@ -162,7 +174,7 @@ export default {
         .delete(`${deleteCoupon}${row.id}`, {
           data: row
         })
-        .then(res => {
+        .then(() => {
           this.init();
           this.deleteMessage();
         });

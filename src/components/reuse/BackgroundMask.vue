@@ -1,23 +1,26 @@
 <style lang="stylus">
-.background-mask
-  &[data-color-type='default']
-    background-color rgba(0, 0, 0, 0)
+.background-mask {
+  &[data-color-type='default'] {
+    background-color: rgba(0, 0, 0, 0);
+  }
 
-  &[data-color-type='dark']
-    background-color rgba(0, 0, 0, 0.3)
+  &[data-color-type='dark'] {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 
-  position absolute
-  left 0
-  top 0
-  height 100%
-  width 100%
-  z-index 100
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  z-index: 100;
+}
 </style>
 <template>
   <div class="background-mask" :data-color-type="colorType">
     <slot></slot>
   </div>
-    
 </template>
 
 <script>
