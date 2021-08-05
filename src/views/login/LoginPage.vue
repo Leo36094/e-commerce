@@ -104,8 +104,8 @@ export default {
   data() {
     return {
       login: {
-        username: "leo36094@gmail.com",
-        password: "Leo820815"
+        username: "",
+        password: ""
       },
       innerHeight: "",
       isLoading: false,
