@@ -24,7 +24,7 @@ VeeValidate.Validator.localize('zh-TW', zhTWValidate);
 Vue.config.productionTip = false;
 
 const token = localStorage.getItem('token');
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: `${process.env.VUE_APP_API}`,
   headers: {
     Authorization: token,

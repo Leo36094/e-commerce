@@ -105,6 +105,9 @@
 <script>
 import Label from '@/components/reuse/Label.vue';
 import Input from '@/components/reuse/Input.vue';
+
+import { instance } from '@/main.js';
+
 export default {
   components: {
     Label,
@@ -144,7 +147,8 @@ export default {
       this.$http.post('admin/signin', this.login).then((res) => {
         if (res.data.success) {
           localStorage.setItem('token', res.data.token);
-          this.$http.defaults.headers.common['Authorization'] = res.data.token; // for all requests
+          instance.defaults.headers.common['Authorization'] = res.data.token;
+           // for all requests
 
           this.isLoading = false;
           this.$router.push('/admin');
