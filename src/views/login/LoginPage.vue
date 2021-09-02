@@ -69,23 +69,33 @@
     <div class="login-page__container bannerHeight">
       <div class="login">
         <form class="login__form form_row" @submit.prevent="signIn">
-          <h1 class="login-error" v-if="errorMessage">{{errorMessage}}</h1>
+          <h1 class="login-error" v-if="errorMessage">{{ errorMessage }}</h1>
           <div class="login__form__item form__column full">
             <Label labelName="帳號" />
           </div>
           <div class="login__form__item form__column full">
-            <Input v-model="login.username" type="text" placeholder="請輸入帳號" />
+            <Input
+              v-model="login.username"
+              type="text"
+              placeholder="請輸入帳號"
+            />
           </div>
 
           <div class="login__form__item form__column full">
             <Label labelName="密碼" />
           </div>
           <div class="login__form__item form__column full">
-            <Input v-model="login.password" type="password" placeholder="請輸入密碼" />
+            <Input
+              v-model="login.password"
+              type="password"
+              placeholder="請輸入密碼"
+            />
           </div>
 
           <div class="login__form__button">
-            <button @submit.prevent="signIn" :disabled="isLoading">{{!isLoading ? '登入' : '登入...'}}</button>
+            <button @submit.prevent="signIn" :disabled="isLoading">
+              {{ !isLoading ? '登入' : '登入...' }}
+            </button>
           </div>
         </form>
       </div>
@@ -93,32 +103,32 @@
   </div>
 </template>
 <script>
-import Label from "@/components/reuse/Label.vue";
-import Input from "@/components/reuse/Input.vue";
+import Label from '@/components/reuse/Label.vue';
+import Input from '@/components/reuse/Input.vue';
 export default {
   components: {
     Label,
-    Input
+    Input,
   },
   props: {},
   data() {
     return {
       login: {
-        username: "",
-        password: ""
+        username: '',
+        password: '',
       },
-      innerHeight: "",
+      innerHeight: '',
       isLoading: false,
-      errorMessage: ""
+      errorMessage: '',
     };
   },
   watch: {
     login: {
       deep: true,
       handler(val) {
-        if (val) this.errorMessage = "";
-      }
-    }
+        if (val) this.errorMessage = '';
+      },
+    },
   },
   computed: {},
   created() {},
@@ -129,31 +139,33 @@ export default {
   destroyed() {},
   methods: {
     signIn() {
-      const api = "https://vue-course-api.hexschool.io/admin/signin";
+      // const api = 'https://vue-course-api.hexschool.io/admin/signin';
       this.isLoading = true;
-      this.$http.post(api, this.login).then(res => {
+      this.$http.post('admin/signin', this.login).then((res) => {
         if (res.data.success) {
+          localStorage.setItem('token', res.data.token);
+          this.$http.defaults.headers.common['Authorization'] = res.data.token; // for all requests
+
           this.isLoading = false;
-          this.$router.push("/admin");
+          this.$router.push('/admin');
         } else {
           this.isLoading = false;
-          this.errorMessage = "Invalid Username or Password";
+          this.errorMessage = 'Invalid Username or Password';
         }
       });
     },
     getFullBanner() {
-      this.innerHeight = window.innerHeight + "px";
-      let bannerSection = document.querySelector(".bannerHeight");
+      this.innerHeight = window.innerHeight + 'px';
+      let bannerSection = document.querySelector('.bannerHeight');
       bannerSection.style.height = this.innerHeight;
     },
     onResize() {
       this.$nextTick(() => {
-        window.addEventListener("resize", () => {
+        window.addEventListener('resize', () => {
           this.getFullBanner();
         });
       });
-    }
-  }
+    },
+  },
 };
 </script>
-

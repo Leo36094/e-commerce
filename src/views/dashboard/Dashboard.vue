@@ -28,9 +28,9 @@
 </style>
 <template>
   <div class="dashboard">
-    <Header class="dashboard__header"/>
+    <Header class="dashboard__header" />
     <div class="dashboard-container">
-      <NavBar class="dashboard__nav"/>
+      <NavBar class="dashboard__nav" />
       <div class="dashboard__table">
         <router-view></router-view>
       </div>
@@ -39,30 +39,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import NavBar from "@/components/NavBar.vue";
-import Header from "@/components/Header.vue";
+import NavBar from '@/components/NavBar.vue';
+import Header from '@/components/Header.vue';
 
 export default {
   components: {
     NavBar,
-    Header
+    Header,
   },
-  props: {},
-  data() {
-    return {};
-  },
-  watch: {},
-  computed: {},
-  created() {
-    // const api = "https://vue-course-api.hexschool.io/api/leochuang/products";
-    // // API 伺服器路徑
-    // // 申請的 API PATH
-    // console.log(process.env.VUE_APP_API);
-    // this.$http.get(api).then(res => console.log(res));
-  },
-  mounted() {},
-  destroyed() {},
-  methods: {}
 };
 </script>
